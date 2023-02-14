@@ -12,8 +12,9 @@ def menu_list_notes():
     print('1. Прочитать заметку')
     print('2. Редактировать заметку')
     print('3. Удалить заметку')
-    print('4. Назад')
-    return 4
+    print('4. Создать заметку')
+    print('5. Назад')
+    return 5
 
 def menu_open_notes():
     print()
@@ -25,5 +26,11 @@ def menu_open_notes():
 def menu_delete_notes():
     print()
     print('1. Удалить заметку')
+    print('2. Отмена')
+    return 2
+
+def menu_edit_notes():
+    print()
+    print('1. Сохранить изменения в заметке')
     print('2. Отмена')
     return 2

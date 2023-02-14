@@ -33,8 +33,12 @@ def notes_list_menu():
                 notes_list_menu()
         case 2:
             id = check.input_data('Введите id заметки')
-            if (notes.notes.edit(id)):
-                notes_edit_menu(id)
+            result = notes.notes.edit(id)
+            if (result[0]):
+                notes_edit_menu(result)
+                clear()
+                print('Изменения сохранены')
+                notes_list_menu()
             else:
                 notes_list_menu()
         case 3:
@@ -45,6 +49,9 @@ def notes_list_menu():
             else:
                 notes_list_menu()
         case 4:
+            notes.notes.create()
+            notes_list_menu()
+        case 5:
             clear()
             notes_main_menu()
         case _:
@@ -55,8 +62,20 @@ def notes_open_menu(id: int):
     sel_menu = check.input_data_menu(nums_menu, f'Введите пункт меню от 1 до {nums_menu}')
     match (sel_menu):
         case 1:
-            notes.notes.edit(id)
+            result = notes.notes.edit(id)
+            if (result[0]):
+                notes_edit_menu(result)
+                clear()
+                print('Изменения сохранены')
+                notes_list_menu()
+            else:
+                notes_list_menu()
         case 2:
+            res = notes.notes.delete(id)
+            if (res[0]):
+                notes_delete_menu(res[1])
+            else:
+                notes_list_menu()
             notes.notes.delete(id)
         case 3:
             clear()
@@ -64,20 +83,23 @@ def notes_open_menu(id: int):
         case _:
             exit(1)
             
-def notes_edit_menu(id: int):
-    notes.notes.edit()
-    nums_menu = ui.ui.menu_edit_notes()
-    sel_menu = check.input_data_menu(nums_menu, f'Введите пункт меню от 1 до {nums_menu}')
-    match (sel_menu):
-        case 1:
-            notes.notes.edit(id)
-        case 2:
-            notes.notes.delete(id)
-        case 3:
-            clear()
-            notes_list_menu()
-        case _:
-            exit(1)
+def notes_edit_menu(data_result):
+    if (data_result[0]):
+        nums_menu = ui.ui.menu_edit_notes()
+        sel_menu = check.input_data_menu(nums_menu, f'Введите пункт меню от 1 до {nums_menu}')
+        match (sel_menu):
+            case 1:
+                notes.notes.edit_confirm(data_result[1], data_result[2], data_result[3], data_result[4], data_result[5])
+            case 2:
+                notes.notes.delete(id)
+            case 3:
+                clear()
+                notes_list_menu()
+            case _:
+                exit(1)
+    else:
+        clear()
+        notes_list_menu()
     
 def notes_delete_menu(data):
     nums_menu = ui.ui.menu_delete_notes()

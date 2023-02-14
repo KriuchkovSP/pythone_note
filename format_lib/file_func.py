@@ -28,7 +28,6 @@ def write_file(filename: str, data):
     dir = filename.split('/')
     check.check_dir(dir[0])
     check.check_file(dir[0] + delim_path + dir[1])
-    dt_now = datetime.datetime.now().strftime('%H:%M %m.%d.%Y')
     with open(dir[0] + delim_path + dir[1], 'w', encoding='utf-8') as dataf:
         csvwriter = csv.writer(dataf, delimiter = ";")
         for row in data:
