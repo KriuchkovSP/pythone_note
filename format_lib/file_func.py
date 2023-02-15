@@ -19,10 +19,11 @@ def add_file(filename: str,id: int,head: str,body: str):
     dir = filename.split('/')
     check.check_dir(dir[0])
     check.check_file(dir[0] + delim_path + dir[1])
-    dt_now = datetime.datetime.now().strftime('%H:%M %m.%d.%Y')
+    d_now = datetime.datetime.now().strftime('%d.%m.%Y')
+    t_now = datetime.datetime.now().strftime('%H:%M')
     with open(dir[0] + delim_path + dir[1], 'a', encoding='utf-8') as data:
         csvwriter = csv.writer(data, delimiter = ";")
-        csvwriter.writerow([id,dt_now,head,body])
+        csvwriter.writerow([id,d_now,t_now,head,body])
         
 def write_file(filename: str, data):
     dir = filename.split('/')
